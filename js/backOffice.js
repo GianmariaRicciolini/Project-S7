@@ -48,9 +48,9 @@ form.addEventListener("submit", function (e) {
     })
     .then((newProduct) => {
       if (newProduct) {
-        alert("Appuntamento con id: " + " è stato modificato con successo ");
+        alert("Il prodotto è stato aggiunto con successo ");
       } else {
-        alert("Appuntamento con id: " + " è stato creato correttamente");
+        alert("Il prodotto non è stato creato correttamente");
         e.target.reset();
       }
     })

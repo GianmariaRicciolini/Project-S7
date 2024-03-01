@@ -65,7 +65,7 @@ const createProductCard = (product) => {
               <p class="card-text">Prezzo: ${product.price} €</p>
               <div class="text-end">
                   <button href="productDetail.html?id=${product._id}" class="d-none btn btn-warning">Modify</button>
-                  <button class="btn btn-danger d-none" onclick="confirmDelete('${product._id}')">Delete</button>
+                  <button class="btn btn-danger d-none" onclick="confirmDelete(event)")">Delete</button>
               </div>
           </div>
       </div>
@@ -93,13 +93,17 @@ const deleteProduct = (productId) => {
     .catch((error) => console.error("Errore durante la cancellazione del prodotto:", error));
 };
 
-const confirmDelete = (productId) => {
+const confirmDelete = (event) => {
+  const productId = event.target.getAttribute("data-product-id");
+  const card = event.target.closest(".card");
+
   const userResponse = window.confirm(
     "Proprio sicurissimo/a di voler eliminare questo prodotto?? Digita 'OK' per confermare o 'Annulla' per annullare."
   );
 
   if (userResponse) {
     deleteProduct(productId);
+    card.remove();
   } else {
     alert("Eliminazione annullata");
   }
