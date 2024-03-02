@@ -60,12 +60,16 @@ const createProductCard = (product) => {
       <div class="card d-flex">
           <img src="${product.imageUrl}" class="card-img-top img-fluid" alt="${product.name}" style="object-fit: cover; height: 500px;">
           <div class="card-body">
-              <h5 class="card-title">${product.name}</h5>
-              <p class="card-text">${product.description}</p>
-              <p class="card-text">Prezzo: ${product.price} €</p>
+              <h2 class="card-title nameProduct">${product.name}</h2>
+              <h6 class="card-title brand">${product.brand}</h6>
+              <p class="card-text description">${product.description}</p>
+              <p class="card-text price">Prezzo: ${product.price} €</p>
+              <p class="card-text productId d-none">ID: ${product._id}</p>
               <div class="text-end">
-                  <button href="productDetail.html?id=${product._id}" class="d-none btn btn-warning">Modify</button>
-                  <button class="btn btn-danger d-none" onclick="confirmDelete(event)")">Delete</button>
+                <button class="btn btn-warning d-none" onclick="modifyProduct(event)">
+                  <a class="link-dark link-underline link-underline-opacity-0" href="./backOffice.html">Modify</a>
+                </button>
+                <button class="btn btn-danger d-none" onclick="confirmDelete(event)")">Delete</button>
               </div>
           </div>
       </div>
@@ -136,3 +140,26 @@ function switchMode() {
     }
   });
 }
+
+// aggiungo funzionalità al button modify per collegarlo anche al back office
+
+const modifyProduct = (event) => {
+  const cardElement = event.target.closest(".card");
+
+  // richiamo i valori
+  const productId = cardElement.querySelector(".productId").textContent;
+  const productName = cardElement.querySelector(".nameProduct").textContent;
+  const productBrand = cardElement.querySelector(".brand").textContent;
+  const productDescription = cardElement.querySelector(".description").textContent;
+  const productPrice = cardElement.querySelector(".price").textContent;
+
+  // pulisco lo storage dai vecchi dati
+  localStorage.clear();
+
+  // carico i nuovi dati sul local storage
+  localStorage.setItem("selectedProductId", productId);
+  localStorage.setItem("selectedProductName", productName);
+  localStorage.setItem("selectedProductBrand", productBrand);
+  localStorage.setItem("selectedProductDescription", productDescription);
+  localStorage.setItem("selectedProductPrice", productPrice);
+};
