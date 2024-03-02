@@ -5,6 +5,19 @@ const myKey =
 
 const form = document.getElementById("backOfficeForm");
 
+document.addEventListener("DOMContentLoaded", function () {
+  // Controlla se ci sono dati nello storage
+  if (localStorage.getItem("selectedProductId")) {
+    // Compila il form con i dati presenti nello storage
+    document.getElementById("productId").value = localStorage.getItem("selectedProductId");
+    document.getElementById("nameProduct").value = localStorage.getItem("selectedProductName");
+    document.getElementById("brand").value = localStorage.getItem("selectedProductBrand");
+    document.getElementById("description").value = localStorage.getItem("selectedProductDescription");
+    document.getElementById("price").value = localStorage.getItem("selectedProductPrice");
+  }
+  hideOrSeen();
+});
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -56,3 +69,14 @@ form.addEventListener("submit", function (e) {
     })
     .catch((err) => console.log(err));
 });
+// Nascondo e mostro la voce del form ID se ho i valori nel local storage
+
+const hideOrSeen = () => {
+  const productIdInput = document.getElementById("productId");
+  const parentDiv = productIdInput.closest(".input-group");
+  if (productIdInput.value === "") {
+    parentDiv.classList.add("d-none");
+  } else if (productIdInput.value === localStorage.getItem("selectedProductId")) {
+    parentDiv.classList.remove("d-none");
+  }
+};

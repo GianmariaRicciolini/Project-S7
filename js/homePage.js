@@ -64,7 +64,7 @@ const createProductCard = (product) => {
               <h6 class="card-title brand">${product.brand}</h6>
               <p class="card-text description">${product.description}</p>
               <p class="card-text price">Prezzo: ${product.price} €</p>
-              <p class="card-text productId d-none">ID: ${product._id}</p>
+              <p class="card-text productId d-none">${product._id}</p>
               <div class="text-end">
                 <button class="btn btn-warning d-none" onclick="modifyProduct(event)">
                   <a class="link-dark link-underline link-underline-opacity-0" href="./backOffice.html">Modify</a>
