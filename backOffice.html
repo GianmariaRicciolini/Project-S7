@@ -13,7 +13,12 @@
   </head>
   <body>
     <div class="container mt-5 mb-5">
-      <h1>Back Office</h1>
+      <div class="d-flex justify-content-between">
+        <h1>Back Office</h1>
+        <button class="btn btn-primary">
+          <a class="link-light link-underline link-underline-opacity-0 fw-bold" href="./homePage.html">Home Page</a>
+        </button>
+      </div>
     </div>
     <div class="container">
       <form id="backOfficeForm">
@@ -63,12 +68,14 @@
           </div>
         </div>
 
-        <input type="hidden" id="productId" />
-
         <div class="text-end">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-success" id="createButton">Create New</button>
+          <button type="submit" class="btn btn-warning" id="modifyButton">Modify</button>
         </div>
       </form>
+      <div class="text-end mt-5">
+        <button type="button" class="btn btn-secondary" id="resetForm">Reset Form</button>
+      </div>
     </div>
 
     <script

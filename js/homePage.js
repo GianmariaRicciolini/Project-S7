@@ -1,14 +1,11 @@
 //Home Page
 
+// URL e API KEY
 const url = "https://striveschool-api.herokuapp.com/api/product/";
 const myKey =
   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWUxYTFjNjRjNTllYzAwMTk5MGQ3MTUiLCJpYXQiOjE3MDkyODU4MzAsImV4cCI6MTcxMDQ5NTQzMH0.r8huHjCZmpzbaiE9zOVPC04JRHlLwJ_j1GxuMOqITyQ";
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Verifica se l'URL corrente corrisponde all'URL della home page
-  getProductData();
-});
-const getProductData = () => {
   fetch(url, {
     headers: {
       Authorization: myKey,
@@ -36,17 +33,19 @@ const getProductData = () => {
       return response.json();
     })
     .then((products) => {
+      // attiva la funzione che mette le card create nell'HTML
       createAndAppendCards(products);
     })
     .catch((err) => {
       console.error("Errore durante il recupero dei dati:", err);
     });
-};
+});
 
 const createAndAppendCards = (products) => {
   const cardContainer = document.getElementById("card-container");
 
   products.forEach((product) => {
+    // per ogni prodotto crea una carta con i suoi valori
     const card = createProductCard(product);
     cardContainer.appendChild(card);
   });
@@ -97,6 +96,7 @@ const deleteProduct = (productId) => {
     .catch((error) => console.error("Errore durante la cancellazione del prodotto:", error));
 };
 
+// creo un sistema di sicurezza che prevenga l'eliminazione accidentale
 const confirmDelete = (event) => {
   const productId = event.target.getAttribute("data-product-id");
   const card = event.target.closest(".card");
@@ -118,8 +118,11 @@ const confirmDelete = (event) => {
 const switchModeButton = document.getElementById("switchMode");
 switchModeButton.addEventListener("click", switchMode);
 
+// questa funzione permette di vedere i button di modifica ed elimina entrando in una ipotetica
+// "admin mode" e inverte il testo del button per indicare di tornare alla "normal mode" senza button
 function switchMode() {
   const cardContainer = document.getElementById("card-container");
+  const backOfficeButton = document.getElementById("changePage");
   const normalMode = switchModeButton.innerText === "Normal Mode";
   const adminMode = switchModeButton.innerText === "Admin Mode";
 
@@ -128,9 +131,11 @@ function switchMode() {
   if (normalMode) {
     // Torna alla modalità utente (visualizza le carte senza i bottoni "Modify" e "Delete")
     switchModeButton.innerText = "Admin Mode";
+    backOfficeButton.classList.add("d-none");
   } else if (adminMode) {
     // Passa alla modalità admin (visualizza le carte con i bottoni "Modify" e "Delete")
     switchModeButton.innerText = "Normal Mode";
+    backOfficeButton.classList.remove("d-none");
   }
   buttons.forEach((button) => {
     if (normalMode) {
